@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SendeGo!</string>
+    <string name="addNewRoute">Añadir nueva ruta</string>
+    <string name="seeRoutes">Ver mis rutas</string>
+    <string name="exit">Salir</string>
+    <string name="about">Acerca de</string>
+    <string name="help">Ayuda</string>
+    <string name="about213">Acerca de</string>
+    <string name="about1231">Acerca de</string>
+    <string name="about24">Acerca de</string>
+    <string name="about1">Acerca de</string>
+</resources>
