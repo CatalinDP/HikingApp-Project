@@ -25,6 +25,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight">
         <activity
+            android:name=".AboutUs"
+            android:exported="false" />
+        <activity
+            android:name=".RouteRegistration"
+            android:exported="false" />
+        <activity
             android:name=".RoutesListActivity"
             android:exported="false" />
         <activity

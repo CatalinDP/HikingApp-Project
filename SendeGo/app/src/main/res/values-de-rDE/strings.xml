@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <resources>
+        <string name="app_name">SendeGo!</string>
+        <string name="addNewRoute">Neue Route hinzufügen</string>
+        <string name="seeRoutes">Meine Routen ansehen</string>
+        <string name="exit">Beenden</string>
+        <string name="about">Über uns</string>
+        <string name="help">Hilfe</string>
+        <string name="about213">Über uns</string>
+        <string name="about1231">Über uns</string>
+        <string name="about24">Über uns</string>
+        <string name="about1">Über uns</string>
+        <string name="route_name">Routenname</string>
+        <string name="localization">Standort oder Ort</string>
+        <string name="difficulty">Schwierigkeitsgrad</string>
+        <string name="distance">Entfernung (km)</string>
+        <string name="description">Beschreibung</string>
+        <string name="notes">Notizen</string>
+        <string name="favourite">Als Favorit markieren</string>
+        <string name="save">Speichern</string>
+        <string name="about_us_description">SendeGo ist eine App zur einfachen Erfassung und Verwaltung von Wanderrouten.</string>
+        <string name="authors">Autoren: Catalin Dumitru Posedaru and Juan de Dios Panches Macías</string>
+        <string name="about_us_date">Datum: Januar 2026</string>
+        <string name="app_version">Version: 0.1</string>
+        <string name="support_button">Support kontaktieren</string>
+        <string-array name="route_type">
+            <item>Rundweg</item>
+            <item>Streckenwanderung</item>
+        </string-array>
+    </resources>
+</resources>

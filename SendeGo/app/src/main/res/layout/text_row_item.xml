@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:text="Elemento de prueba"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="68dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="69dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
