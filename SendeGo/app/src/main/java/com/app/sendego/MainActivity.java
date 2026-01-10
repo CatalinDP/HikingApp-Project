@@ -20,6 +20,15 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        Button btnRouteList = findViewById(R.id.btnSeeRoutes);
+        btnRouteList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RoutesListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button btnExit = findViewById(R.id.btnExit);
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
