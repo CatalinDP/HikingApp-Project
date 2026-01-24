@@ -1,6 +1,7 @@
 package com.app.sendego;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
     public CustomAdapter(List<Route> dataSet) {
         localDataSet = dataSet;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        localDataSet = routes;
+        notifyDataSetChanged();
     }
 
     // Create new views (invoked by the layout manager)
@@ -98,10 +104,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Ruta seleccionada" + route.getName(), Toast.LENGTH_SHORT).show();
-                ///  TODO: Aquí implementar la Ficha tecnica para que te lleve a la otra vista
+                Intent intent = new Intent(context, RouteDetailActivity.class);
+                intent.putExtra(RouteDetailActivity.EXTRA_ROUTE_ID, route.getId());
+                context.startActivity(intent);
             }
         });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

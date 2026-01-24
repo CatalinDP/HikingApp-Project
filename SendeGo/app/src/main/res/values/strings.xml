@@ -28,6 +28,11 @@
         <item>Media</item>
         <item>Fácil</item>
     </string-array>
+    <string-array name="difficultyRegistration">
+        <item>Fácil</item>
+        <item>Media</item>
+        <item>Difícil</item>
+    </string-array>
     <string name="difficultyHard">Difícil</string>
     <string name="difficultyMid">Media</string>
     <string name="difficultyEasy">Fácil</string>

@@ -1,10 +1,17 @@
 package models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+@Entity
 public class Route {
-    private int id;
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
     private String name;
     private Difficulty difficulty;
     private RouteType type;
@@ -13,10 +20,11 @@ public class Route {
     private String description;
     private String notes;
     private boolean favorite;
+    private double latitude;
+    private double longitude;
     public static List<Route> routeList = new ArrayList<>(); //Lista donde se guardan las rutas!
 
-    public Route(int id, String name, Difficulty difficulty, RouteType type, int distance, int puntuacion, String description, String notes, boolean favorite) {
-        this.id = id;
+    public Route(String name, Difficulty difficulty, RouteType type, int distance, int puntuacion, String description, String notes, boolean favorite, double latitude, double longitude) {
         this.name = name;
         this.difficulty = difficulty;
         this.type = type;
@@ -25,6 +33,11 @@ public class Route {
         this.description = description;
         this.notes = notes;
         this.favorite = favorite;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Route() {
     }
 
     public RouteType getType() {
@@ -43,11 +56,12 @@ public class Route {
         this.puntuacion = puntuacion;
     }
 
-    public int getId() {
+    @NonNull
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull Integer id) {
         this.id = id;
     }
 
@@ -91,10 +105,14 @@ public class Route {
         this.notes = notes;
     }
 
+    public double getLatitude() { return latitude; }
+    public double getLongitude() { return longitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
     public boolean isFavorite() {
         return favorite;
     }
-
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
     }

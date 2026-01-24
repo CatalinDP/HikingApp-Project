@@ -24,11 +24,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Route.routeList.add(new Route(1, "Ruta Media", Difficulty.MEDIA, RouteType.LINEAL , 10, 3, "Descripción de la ruta 1", "Notas de la ruta 1", true));
-        Route.routeList.add(new Route(2, "Ruta Dificil", Difficulty.DIFICIL, RouteType.CIRCULAR , 15, 1, "Descripción de la ruta 2", "Notas de la ruta 2", false));
-        Route.routeList.add(new Route(3, "Ruta Facil", Difficulty.FACIL, RouteType.LINEAL ,5, 5, "Descripción de la ruta 3", "Notas de la ruta 3", true));
-
-
         Button btnRouteList = findViewById(R.id.btnSeeRoutes);
         btnRouteList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +73,5 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        //Comentario para comprobar si puedo hacer push al gh
     }
 }

@@ -25,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight">
         <activity
+            android:name=".RouteDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".AboutUs"
             android:exported="false" />
         <activity

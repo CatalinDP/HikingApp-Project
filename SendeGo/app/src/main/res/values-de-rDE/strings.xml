@@ -32,4 +32,9 @@
     <string name="difficultyHard">Schwer</string>
     <string name="difficultyMid">Mittel</string>
     <string name="difficultyEasy">Einfach</string>
+    <string-array name="difficultyRegistration">
+        <item>Einfach</item>
+        <item>Mittel</item>
+        <item>Schwer</item>
+    </string-array>
 </resources>
