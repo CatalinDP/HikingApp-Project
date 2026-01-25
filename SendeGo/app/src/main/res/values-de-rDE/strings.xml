@@ -37,4 +37,12 @@
         <item>Mittel</item>
         <item>Schwer</item>
     </string-array>
+    <string name="latitude_example">Breite (ej: 38°03′17″N)</string>
+    <string name="longitude_example">Länge (ej: 1°12′47″O)</string>
+    <string name="name_point">Punktname</string>
+    <string name="btnSelectPhotoPOI">Foto auswählen</string>
+    <string name="photo_preview_POI">Fotovorschau</string>
+    <string name="btnSavePOI">Punkt speichern</string>
+    <string name="point_of_interest">Interessante Punkte</string>
+    <string name="add_POI">Punkt hinzufügen</string>
 </resources>

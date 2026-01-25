@@ -25,6 +25,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight">
         <activity
+            android:name=".PointsOfInterestAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".PointOfInterestRegistration"
+            android:exported="false" />
+        <activity
             android:name=".RouteDetailActivity"
             android:exported="false" />
         <activity

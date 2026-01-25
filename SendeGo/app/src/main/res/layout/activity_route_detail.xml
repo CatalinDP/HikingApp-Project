@@ -55,7 +55,8 @@
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="center" android:layout_height="wrap_content">
+                android:gravity="center"
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="32dp"
@@ -71,7 +72,8 @@
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="center" android:layout_height="wrap_content">
+                android:gravity="center"
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="32dp"
@@ -87,7 +89,8 @@
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="center" android:layout_height="wrap_content">
+                android:gravity="center"
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="32dp"
@@ -120,6 +123,39 @@
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Nueva sección: Puntos de interés -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/point_of_interest"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPoi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <Button
+                android:id="@+id/btnAddPoi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_POI"
+                android:backgroundTint="@color/dark_green"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -20,11 +20,11 @@ public class Route {
     private String description;
     private String notes;
     private boolean favorite;
-    private double latitude;
-    private double longitude;
+    private String latitude;
+    private String longitude;
     public static List<Route> routeList = new ArrayList<>(); //Lista donde se guardan las rutas!
 
-    public Route(String name, Difficulty difficulty, RouteType type, int distance, int puntuacion, String description, String notes, boolean favorite, double latitude, double longitude) {
+    public Route(String name, Difficulty difficulty, RouteType type, int distance, int puntuacion, String description, String notes, boolean favorite, String latitude, String longitude) {
         this.name = name;
         this.difficulty = difficulty;
         this.type = type;
@@ -105,10 +105,10 @@ public class Route {
         this.notes = notes;
     }
 
-    public double getLatitude() { return latitude; }
-    public double getLongitude() { return longitude; }
-    public void setLatitude(double latitude) { this.latitude = latitude; }
-    public void setLongitude(double longitude) { this.longitude = longitude; }
+    public String getLatitude() { return latitude; }
+    public void setLatitude(String latitude) { this.latitude = latitude; }
+    public String getLongitude() { return longitude; }
+    public void setLongitude(String longitude) { this.longitude = longitude; }
 
     public boolean isFavorite() {
         return favorite;

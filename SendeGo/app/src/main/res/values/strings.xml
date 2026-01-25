@@ -36,6 +36,14 @@
     <string name="difficultyHard">Difícil</string>
     <string name="difficultyMid">Media</string>
     <string name="difficultyEasy">Fácil</string>
+    <string name="latitude_example">Latitud (ej: 38°03′17″N)</string>
+    <string name="longitude_example">Longitud (ej: 1°12′47″O)</string>
+    <string name="name_point">Nombre del punto</string>
+    <string name="btnSelectPhotoPOI">Seleccionar foto</string>
+    <string name="photo_preview_POI">Vista previa de la foto</string>
+    <string name="btnSavePOI">Guardar punto</string>
+    <string name="point_of_interest">Puntos de interés</string>
+    <string name="add_POI">Añadir punto</string>
 
 
 </resources>

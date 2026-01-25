@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/mayo_green"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/etPoiName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_point"
+            android:inputType="text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/etPoiLatitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/latitude_example"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/etPoiName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/etPoiLongitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/longitude_example"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/etPoiLatitude"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btnSelectPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:backgroundTint="@color/dark_green"
+            android:text="@string/btnSelectPhotoPOI"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.083"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etPoiLongitude" />
+
+        <ImageView
+            android:id="@+id/imgPoiPreview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/photo_preview_POI"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintStart_toEndOf="@+id/btnSelectPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/etPoiLongitude" />
+
+        <Button
+            android:id="@+id/btnSavePoi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btnSavePOI"
+            android:backgroundTint="@color/dark_green"
+            app:layout_constraintTop_toBottomOf="@id/imgPoiPreview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
