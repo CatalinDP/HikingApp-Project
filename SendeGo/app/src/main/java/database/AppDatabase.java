@@ -18,7 +18,8 @@ import models.Route;
 
 Añades una nueva entidad (@Entity)
 Cambias el esquema de una entidad existente (añades/eliminas campos, cambias tipos, añades índices, foreign keys, etc.)
-Modificas cualquier cosa que afecte la estructura de las tablas (para lo de la versión 2)(para que se entienda el por qué, si no se cambia crashea -experiencia propia-)
+Modificas cualquier cosa que afecte la estructura de las tablas
+(para lo de la versión 2)(para que se entienda el por qué, si no se cambia crashea -experiencia propia-)
 * */
 
 @Database(entities = {Route.class, PointOfInterest.class}, version = 2, exportSchema = false)
