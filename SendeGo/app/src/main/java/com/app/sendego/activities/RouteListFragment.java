@@ -1,61 +1,75 @@
-package com.app.sendego;
+package com.app.sendego.activities;
 
-import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import com.app.sendego.CustomAdapter;
+import com.app.sendego.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import dao.Converters;
 import database.AppDatabase;
 import models.Difficulty;
 import models.Route;
 
-public class RoutesListActivity extends AppCompatActivity {
-
+public class RouteListFragment extends Fragment {
     AppDatabase appDatabase;
     List<Route> routeList = new ArrayList<>();
     List<Route> filteredList = new ArrayList<>();
     CustomAdapter adapter;
+    RecyclerView recyclerView;
+
+    public RouteListFragment() {
+        // Required empty public constructor
+    }
+
     private void loadRecyclerView() {
         adapter = new CustomAdapter(routeList);
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_routes_list);
+    }
 
-        Spinner spinner = findViewById(R.id.spinnerDifficulty);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_route_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Spinner spinner = view.findViewById(R.id.spinnerDifficulty);
 
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
-                this,
+                getContext(),
                 R.array.difficulty,
                 android.R.layout.simple_spinner_item
         );
-
-        appDatabase = AppDatabase.getAppDatabase(this);
-
+        appDatabase = AppDatabase.getAppDatabase(getContext());
+        recyclerView = view.findViewById(R.id.recycler_view);
         loadRecyclerView();
-
         loadList();
 
         spinner.setAdapter(spinnerAdapter);
@@ -68,15 +82,15 @@ public class RoutesListActivity extends AppCompatActivity {
                         break;
                     }
                     case 1: {
-                            loadFilteredList(Difficulty.DIFICIL);
+                        loadFilteredListFromDb(Difficulty.DIFICIL);
                         break;
                     }
                     case 2: {
-                            loadFilteredList(Difficulty.MEDIA);
+                        loadFilteredListFromDb(Difficulty.MEDIA);
                         break;
                     }
                     case 3: {
-                            loadFilteredList(Difficulty.FACIL);
+                        loadFilteredListFromDb(Difficulty.FACIL);
                         break;
                     }
                 }
@@ -87,42 +101,27 @@ public class RoutesListActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
+
     ExecutorService executor = Executors.newSingleThreadExecutor();
+
     private void loadList() {
         if (routeList.isEmpty()) {
             executor.execute(() -> {
                 routeList = appDatabase.daoRoute().getAllRoutes();
+                requireActivity().runOnUiThread(() -> {
+                    adapter.setRoutes(routeList);
+                });
             });
         }
-        runOnUiThread(() -> {
-            adapter.setRoutes(routeList);
-        });
-    }
-
-    private void loadFilteredList(Difficulty difficulty) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            filteredList = routeList.stream().filter(route -> route.getDifficulty() == difficulty).toList();
-        }
-        runOnUiThread(() -> {
-            adapter.setRoutes(filteredList);
-        });
     }
 
     private void loadFilteredListFromDb(Difficulty difficulty) {
         executor.execute(() -> {
             filteredList = appDatabase.daoRoute().getRoutesByDifficulty(difficulty.toString());
-        });
-        runOnUiThread(() -> {
-            adapter.setRoutes(filteredList);
+            requireActivity().runOnUiThread(() -> {
+                adapter.setRoutes(filteredList);
+            });
         });
     }
 }

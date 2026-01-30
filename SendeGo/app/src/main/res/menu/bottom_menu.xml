@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_icon"
+        android:title="@string/homeView" />
+    <item
+        android:id="@+id/nav_rutas"
+        android:icon="@drawable/list_icon"
+        android:title="@string/seeRoutes" />
+    <item
+        android:id="@+id/nav_favRoute"
+        android:icon="@drawable/favorite_icon"
+        android:title="@string/myFavoriteRoutes" />
+
+</menu>

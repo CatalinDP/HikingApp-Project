@@ -1,4 +1,4 @@
-package com.app.sendego;
+package com.app.sendego.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.sendego.R;
 
 import database.AppDatabase;
 import models.PointOfInterest;

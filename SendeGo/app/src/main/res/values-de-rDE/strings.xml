@@ -45,4 +45,7 @@
     <string name="btnSavePOI">Punkt speichern</string>
     <string name="point_of_interest">Interessante Punkte</string>
     <string name="add_POI">Punkt hinzufügen</string>
+    <string name="myFavoriteRoutes">Lieblingsrouten</string>
+    <string name="homeView">Start</string>
+    <string name="favoriteRoutesTextView">Ihre Lieblingsrouten</string>
 </resources>

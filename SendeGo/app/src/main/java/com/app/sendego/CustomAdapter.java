@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.app.sendego.activities.RouteDetailActivity;
 
 import java.util.List;
 

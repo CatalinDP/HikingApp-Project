@@ -17,6 +17,9 @@ public class PointsOfInterestAdapter extends RecyclerView.Adapter<PointsOfIntere
 
     private List<PointOfInterest> poiList;
 
+    public PointsOfInterestAdapter() {
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView poiImage;
         private final TextView poiName;

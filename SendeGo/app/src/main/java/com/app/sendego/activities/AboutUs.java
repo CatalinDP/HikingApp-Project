@@ -1,4 +1,4 @@
-package com.app.sendego;
+package com.app.sendego.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.sendego.R;
 
 public class AboutUs extends AppCompatActivity {
 

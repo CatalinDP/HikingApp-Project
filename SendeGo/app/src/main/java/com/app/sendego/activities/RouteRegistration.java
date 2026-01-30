@@ -1,4 +1,4 @@
-package com.app.sendego;
+package com.app.sendego.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.sendego.R;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

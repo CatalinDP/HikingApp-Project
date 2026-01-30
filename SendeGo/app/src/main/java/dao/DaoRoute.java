@@ -30,4 +30,7 @@ public interface DaoRoute {
     @Query("SELECT * FROM Route WHERE difficulty = :difficulty")
     List<Route> getRoutesByDifficulty(String difficulty);
 
+    @Query("SELECT * FROM Route WHERE favorite = 1")
+    List<Route> getFavoriteRoutes();
+
 }

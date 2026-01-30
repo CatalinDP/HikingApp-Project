@@ -1,4 +1,4 @@
-package com.app.sendego;
+package com.app.sendego.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,19 +7,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.sendego.PointsOfInterestAdapter;
+import com.app.sendego.R;
+
 import database.AppDatabase;
-import models.PointOfInterest;
 import models.Route;
 import threads.LoadPointsOfInterest;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
