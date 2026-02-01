@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.app.sendego.CustomAdapter;
 import com.app.sendego.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -75,7 +77,7 @@ public class RouteListFragment extends Fragment {
         Spinner spinner = view.findViewById(R.id.spinnerDifficulty);
 
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
-                getContext(),
+                requireContext(),
                 R.array.difficulty,
                 android.R.layout.simple_spinner_item
         );
@@ -94,15 +96,15 @@ public class RouteListFragment extends Fragment {
                         break;
                     }
                     case 1: {
-                        loadFilteredListFromDb(Difficulty.DIFICIL);
+                        loadFilteredList(Difficulty.DIFICIL);
                         break;
                     }
                     case 2: {
-                        loadFilteredListFromDb(Difficulty.MEDIA);
+                        loadFilteredList(Difficulty.MEDIA);
                         break;
                     }
                     case 3: {
-                        loadFilteredListFromDb(Difficulty.FACIL);
+                        loadFilteredList(Difficulty.FACIL);
                         break;
                     }
                 }
@@ -117,17 +119,15 @@ public class RouteListFragment extends Fragment {
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private void loadList() {
-        if (routeList.isEmpty()) {
-            executor.execute(() -> {
-                routeList = appDatabase.daoRoute().getAllRoutes();
-                requireActivity().runOnUiThread(() -> {
-                    adapter.setRoutes(routeList);
-                });
+        executor.execute(() -> {
+            routeList = appDatabase.daoRoute().getAllRoutes();
+            requireActivity().runOnUiThread(() -> {
+                adapter.setRoutes(routeList);
             });
-        }
+        });
     }
 
-    private void loadFilteredListFromDb(Difficulty difficulty) {
+    private void loadFilteredList(Difficulty difficulty) {
         executor.execute(() -> {
             filteredList = appDatabase.daoRoute().getRoutesByDifficulty(difficulty.toString());
             requireActivity().runOnUiThread(() -> {

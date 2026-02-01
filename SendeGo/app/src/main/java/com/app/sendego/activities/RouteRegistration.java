@@ -6,6 +6,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -78,6 +79,7 @@ public class RouteRegistration extends AppCompatActivity {
             EditText etLatitude = findViewById(R.id.etLatitude);
             EditText etLongitude = findViewById(R.id.etLongitude);
             Switch swFavorito = findViewById(R.id.swFavorite);
+            RatingBar ratingBar = findViewById(R.id.ratingBarRegistration);
 
             String name = etNombreRuta.getText().toString().trim();
             if (name.isEmpty()) {
@@ -111,13 +113,14 @@ public class RouteRegistration extends AppCompatActivity {
             // Obtenemos el tipo de ruta del spinner (por consistencia)
             int typePosition = spTipoRuta.getSelectedItemPosition();
             RouteType selectedRouteType = RouteType.values()[typePosition];
+            float puntos = ratingBar.getRating();
 
             Route route = new Route(
                     name,
-                    selectedDifficulty,          // ← ahora usa el valor real seleccionado
+                    selectedDifficulty,
                     selectedRouteType,
                     distance,
-                    5,  // puntuación por defecto
+                    puntos,
                     etDescription.getText().toString().trim(),
                     etNotes.getText().toString().trim(),
                     swFavorito.isChecked(),

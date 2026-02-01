@@ -58,12 +58,14 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.fragment_container, selectedFragment)
                         .commit();
             }
-            return true; // Indica que el item ha sido seleccionado
+            return true;
         });
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
     }

@@ -9,4 +9,5 @@
     <color name="color_easy">#4CAF50</color>
     <color name="color_mid">#FF9800</color>
     <color name="color_hard">#F44336</color>
+    <color name="color_fav">#1F4209</color>
 </resources>

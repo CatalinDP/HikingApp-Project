@@ -47,5 +47,6 @@
     <string name="myFavoriteRoutes">Rutas favoritas</string>
     <string name="homeView">Inicio</string>
     <string name="favoriteRoutesTextView">Tus rutas favoritas</string>
+    <string name="emptyFavRoutes">No tienes rutas favoritas aún</string>
 
 </resources>

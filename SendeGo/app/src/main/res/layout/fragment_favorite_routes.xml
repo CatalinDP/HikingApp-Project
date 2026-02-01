@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/mayo_green">
 
-    <!-- Título centrado -->
     <TextView
         android:id="@+id/favRouteTxtView"
         android:layout_width="wrap_content"
@@ -15,12 +14,11 @@
         android:text="@string/favoriteRoutesTextView"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/color_fav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fav_recycler_view"
         android:layout_width="0dp"
@@ -34,12 +32,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/favRouteTxtView" />
 
-    <!-- Mensaje cuando no hay favoritos -->
     <TextView
         android:id="@+id/tvEmptyFavorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No tienes rutas favoritas aún 😔"
+        android:text="@string/emptyFavRoutes"
         android:textSize="18sp"
         android:textColor="#FFFFFF"
         android:textStyle="italic"
