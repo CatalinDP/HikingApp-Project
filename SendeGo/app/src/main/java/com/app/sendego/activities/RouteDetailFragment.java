@@ -1,14 +1,11 @@
 package com.app.sendego.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,7 +38,6 @@ public class RouteDetailFragment extends Fragment {
     private AppDatabase db;
     private PointsOfInterestAdapter poiAdapter;
     private RecyclerView recyclerPoi;
-    private WebView webViewMap;
     private long routeId;
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -86,8 +82,6 @@ public class RouteDetailFragment extends Fragment {
         }
 
         favoriteIcon = view.findViewById(R.id.favoriteIcon);
-        webViewMap = view.findViewById(R.id.webViewMap);
-        Button btnOpenMaps = view.findViewById(R.id.btnOpenMaps);
 
         recyclerPoi = view.findViewById(R.id.recyclerPoi);
         recyclerPoi.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -101,6 +95,8 @@ public class RouteDetailFragment extends Fragment {
             addPoiLauncher.launch(intent);
         });
 
+        // Botón para abrir Google Maps (código directo como lo dio la profesora)
+        Button btnOpenMaps = view.findViewById(R.id.btnOpenMaps);
         btnOpenMaps.setOnClickListener(v -> {
             if (route == null || route.getLatitude() == null || route.getLongitude() == null) {
                 Toast.makeText(requireContext(), "No hay coordenadas disponibles", Toast.LENGTH_SHORT).show();
@@ -119,21 +115,27 @@ public class RouteDetailFragment extends Fragment {
 
             String etiqueta = route.getName() != null ? route.getName() : "Inicio de la ruta";
 
-            Uri gmmIntentUri = Uri.parse("geo:" + lat + "," + lon + "?q=" + lat + "," + lon + "(" + Uri.encode(etiqueta) + ")");
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            Uri myIntentUri = Uri.parse(
+                    "geo:" + lat + "," + lon +
+                            "?q=" + lat + "," + lon +
+                            "(" + Uri.encode(etiqueta) + ")"
+            );
+
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, myIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
 
-            if (mapIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            if (mapIntent.resolveActivity(requireContext().getPackageManager()) != null) {
                 startActivity(mapIntent);
             } else {
-                Toast.makeText(requireContext(), "Google Maps no está instalado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(),
+                        "Google Maps no está instalado",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
         loadRouteAndPois();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     private void loadRouteAndPois() {
         executor.execute(() -> {
             route = db.daoRoute().getRouteById((int) routeId);
@@ -145,7 +147,6 @@ public class RouteDetailFragment extends Fragment {
                     return;
                 }
 
-                // Cabecera
                 TextView routeTitle = requireView().findViewById(R.id.routeTitle);
                 routeTitle.setText(route.getName());
                 updateFavoriteIcon();
@@ -156,7 +157,6 @@ public class RouteDetailFragment extends Fragment {
                     executor.execute(() -> db.daoRoute().updateRoute(route));
                 });
 
-                // Datos técnicos
                 TextView distanceText = requireView().findViewById(R.id.distanceText);
                 TextView difficultyText = requireView().findViewById(R.id.difficultyText);
                 TextView timeText = requireView().findViewById(R.id.timeText);
@@ -168,41 +168,13 @@ public class RouteDetailFragment extends Fragment {
                 double estimatedTime = route.getDistance() / speed;
                 timeText.setText(String.format("%.1f h", estimatedTime));
 
-                // Descripción
                 TextView descriptionText = requireView().findViewById(R.id.descriptionText);
                 descriptionText.setText(route.getDescription() != null ? route.getDescription() : "");
 
-                // Coordenadas
                 TextView coordinatesText = requireView().findViewById(R.id.coordinatesText);
                 String lat = route.getLatitude() != null ? route.getLatitude() : "—";
                 String lon = route.getLongitude() != null ? route.getLongitude() : "—";
                 coordinatesText.setText("Lat: " + lat + "\nLon: " + lon);
-
-                // Cargar mapa integrado en WebView
-                if (route.getLatitude() != null && route.getLongitude() != null) {
-                    try {
-                        double latDouble = Double.parseDouble(route.getLatitude());
-                        double lonDouble = Double.parseDouble(route.getLongitude());
-
-                        String mapUrl = "https://maps.google.com/maps?q=" + latDouble + "," + lonDouble + "&hl=es&z=15&t=m&output=embed";
-
-                        WebSettings webSettings = webViewMap.getSettings();
-                        webSettings.setJavaScriptEnabled(true);
-                        webSettings.setDomStorageEnabled(true);
-                        webSettings.setLoadWithOverviewMode(true);
-                        webSettings.setUseWideViewPort(true);
-                        webSettings.setBuiltInZoomControls(true);
-                        webSettings.setDisplayZoomControls(false);
-
-                        webViewMap.loadUrl(mapUrl);
-                        webViewMap.setVisibility(View.VISIBLE);
-                    } catch (NumberFormatException e) {
-                        webViewMap.setVisibility(View.GONE);
-                        Toast.makeText(requireContext(), "Coordenadas inválidas", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    webViewMap.setVisibility(View.GONE);
-                }
             });
 
             new LoadPointsOfInterest(db, (int) routeId, pois ->
