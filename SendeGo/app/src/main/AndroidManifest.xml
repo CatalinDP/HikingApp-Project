@@ -2,15 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-
             <data android:scheme="http" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-
             <data android:scheme="https" />
         </intent>
     </queries>
@@ -24,15 +24,13 @@
         android:roundIcon="@mipmap/logo_sendego_asset"
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+
         <activity
             android:name=".PointsOfInterestAdapter"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".activities.PointOfInterestRegistration"
-            android:exported="false" />
-        <activity
-            android:name=".activities.RouteDetailActivity"
             android:exported="false" />
         <activity
             android:name=".activities.AboutUs"
@@ -45,10 +43,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

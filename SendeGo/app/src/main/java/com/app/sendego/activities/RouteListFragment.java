@@ -20,7 +20,6 @@ import com.app.sendego.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,13 +35,26 @@ public class RouteListFragment extends Fragment {
     RecyclerView recyclerView;
 
     public RouteListFragment() {
-        // Required empty public constructor
     }
 
     private void loadRecyclerView() {
         adapter = new CustomAdapter(routeList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnRouteClickListener(route -> {
+            RouteDetailFragment detailFragment = new RouteDetailFragment();
+
+            Bundle args = new Bundle();
+            args.putLong("route_id", route.getId());
+            detailFragment.setArguments(args);
+
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, detailFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     @Override
@@ -94,11 +106,10 @@ public class RouteListFragment extends Fragment {
                         break;
                     }
                 }
-
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }

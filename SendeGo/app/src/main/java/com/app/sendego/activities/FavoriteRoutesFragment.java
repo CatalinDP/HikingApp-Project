@@ -1,6 +1,10 @@
 package com.app.sendego.activities;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,41 +12,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-
 import com.app.sendego.CustomAdapter;
 import com.app.sendego.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import database.AppDatabase;
-import models.Difficulty;
 import models.Route;
-
 
 public class FavoriteRoutesFragment extends Fragment {
 
-    AppDatabase appDatabase;
-    List<Route> routeList = new ArrayList<>();
-    CustomAdapter adapter;
+    private AppDatabase appDatabase;
+    private List<Route> routeList = new ArrayList<>();
+    private CustomAdapter adapter;
+    private RecyclerView recyclerView;
+    private TextView tvEmptyFavorites;
+
     public FavoriteRoutesFragment() {
-        // Required empty public constructor
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -55,27 +44,54 @@ public class FavoriteRoutesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Spinner spinner = view.findViewById(R.id.spinnerDifficulty);
+        recyclerView = view.findViewById(R.id.fav_recycler_view);
+        tvEmptyFavorites = view.findViewById(R.id.tvEmptyFavorites);
 
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
-                requireContext(),
-                R.array.difficulty,
-                android.R.layout.simple_spinner_item
-        );
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         adapter = new CustomAdapter(routeList);
-        appDatabase = AppDatabase.getAppDatabase(getContext());
-        RecyclerView recyclerView = view.findViewById(R.id.fav_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnRouteClickListener(route -> {
+            RouteDetailFragment detailFragment = new RouteDetailFragment();
+
+            Bundle args = new Bundle();
+            args.putLong("route_id", route.getId());
+            detailFragment.setArguments(args);
+
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, detailFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        appDatabase = AppDatabase.getAppDatabase(requireContext());
+
         loadFavList();
     }
 
-    ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
     private void loadFavList() {
         executor.execute(() -> {
-            routeList = appDatabase.daoRoute().getFavoriteRoutes();
+            List<Route> favorites = appDatabase.daoRoute().getFavoriteRoutes();
+
             requireActivity().runOnUiThread(() -> {
+                routeList.clear();
+                if (favorites != null) {
+                    routeList.addAll(favorites);
+                }
+
                 adapter.setRoutes(routeList);
+
+                if (routeList.isEmpty()) {
+                    tvEmptyFavorites.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    tvEmptyFavorites.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
             });
         });
     }

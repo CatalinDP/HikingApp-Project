@@ -35,7 +35,7 @@ public class PointOfInterestRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_point_of_interest_registration);
 
         appDatabase = AppDatabase.getAppDatabase(this);
-        routeId = getIntent().getIntExtra(RouteDetailActivity.EXTRA_ROUTE_ID, -1);
+        routeId = getIntent().getIntExtra(RouteDetailFragment.EXTRA_ROUTE_ID, -1);
         if (routeId == -1) {
             Toast.makeText(this, "Ruta no encontrada", Toast.LENGTH_SHORT).show();
             finish();
