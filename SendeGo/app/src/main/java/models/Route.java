@@ -15,7 +15,7 @@ public class Route {
     private String name;
     private Difficulty difficulty;
     private RouteType type;
-    private int distance;
+    private double distance;
     private float puntuacion;
     private String description;
     private String notes;
@@ -24,7 +24,7 @@ public class Route {
     private String longitude;
     public static List<Route> routeList = new ArrayList<>(); //Lista donde se guardan las rutas!
 
-    public Route(String name, Difficulty difficulty, RouteType type, int distance, float puntuacion, String description, String notes, boolean favorite, String latitude, String longitude) {
+    public Route(String name, Difficulty difficulty, RouteType type, Double distance, float puntuacion, String description, String notes, boolean favorite, String latitude, String longitude) {
         this.name = name;
         this.difficulty = difficulty;
         this.type = type;
@@ -81,11 +81,11 @@ public class Route {
         this.difficulty = difficulty;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 

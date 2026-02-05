@@ -93,9 +93,9 @@ public class RouteRegistration extends AppCompatActivity {
                 return;
             }
 
-            int distance;
+            double distance;
             try {
-                distance = Integer.parseInt(distanceStr);
+                distance = Double.parseDouble(distanceStr);
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "La distancia debe ser un número válido", Toast.LENGTH_SHORT).show();
                 return;

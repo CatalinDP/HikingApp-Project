@@ -30,6 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
+        <!-- ACTIVIDADES -->
+
         <activity
             android:name=".PointsOfInterestAdapter"
             android:exported="false"
@@ -51,6 +53,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- SERVICIOS -->
+
+        <service android:name=".services.MusicService" android:enabled="true">
+        </service>
 
     </application>
 
