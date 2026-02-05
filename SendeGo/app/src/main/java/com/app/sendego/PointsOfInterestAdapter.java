@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import models.PointOfInterest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PointsOfInterestAdapter extends RecyclerView.Adapter<PointsOfInterestAdapter.ViewHolder> {
@@ -18,6 +19,7 @@ public class PointsOfInterestAdapter extends RecyclerView.Adapter<PointsOfIntere
     private List<PointOfInterest> poiList;
 
     public PointsOfInterestAdapter() {
+        poiList = new ArrayList<>();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -36,9 +38,9 @@ public class PointsOfInterestAdapter extends RecyclerView.Adapter<PointsOfIntere
     public PointsOfInterestAdapter(List<PointOfInterest> dataSet) {
         poiList = dataSet;
     }
-
     public void setPois(List<PointOfInterest> pois) {
-        poiList = pois;
+        poiList.clear();
+        poiList.addAll(pois);
         notifyDataSetChanged();
     }
 

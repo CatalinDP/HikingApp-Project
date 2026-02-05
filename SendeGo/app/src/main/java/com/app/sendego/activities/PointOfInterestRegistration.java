@@ -50,15 +50,18 @@ public class PointOfInterestRegistration extends AppCompatActivity {
         Button btnSavePoi = findViewById(R.id.btnSavePoi);
 
         // Selector de imagen
-        ActivityResultLauncher<String> pickImage = registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
+        ActivityResultLauncher<String[]> pickImage = registerForActivityResult(
+                new ActivityResultContracts.OpenDocument(),
                 uri -> {
                     if (uri != null) {
                         selectedImageUri = uri;
                         imgPreview.setImageURI(uri);
 
                         try {
-                            final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                            final int takeFlags =
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+
                             getContentResolver().takePersistableUriPermission(uri, takeFlags);
                         } catch (SecurityException e) {
                             Toast.makeText(this, "No se pudo mantener el acceso a la foto", Toast.LENGTH_SHORT).show();
@@ -66,7 +69,10 @@ public class PointOfInterestRegistration extends AppCompatActivity {
                     }
                 });
 
-        btnSelectPhoto.setOnClickListener(v -> pickImage.launch("image/*"));
+
+        btnSelectPhoto.setOnClickListener(v ->
+                pickImage.launch(new String[]{"image/*"}));
+
 
         btnSavePoi.setOnClickListener(v -> {
             String name = etName.getText().toString().trim();
@@ -86,11 +92,16 @@ public class PointOfInterestRegistration extends AppCompatActivity {
             PointOfInterest poi = new PointOfInterest(name, lat, lon, photoUri, routeId);
 
             ExecutorService executor = Executors.newSingleThreadExecutor();
-            executor.execute(new InsertPointOfInterest(appDatabase, poi));
+            executor.execute(() -> {
+                appDatabase.daoPointOfInterest().insertPointOfInterest(poi);
 
-            Toast.makeText(this, "Punto añadido", Toast.LENGTH_SHORT).show();
-            setResult(RESULT_OK);
-            finish();
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Punto añadido", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
+                    finish();
+                });
+            });
+
         });
     }
 }
