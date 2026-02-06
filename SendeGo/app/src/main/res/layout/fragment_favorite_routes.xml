@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:textColor="@color/text_dark"
         android:text="@string/favoriteRoutesTextView"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:textColor="@color/color_fav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

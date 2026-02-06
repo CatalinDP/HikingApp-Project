@@ -10,4 +10,7 @@
     <color name="color_mid">#FF9800</color>
     <color name="color_hard">#F44336</color>
     <color name="color_fav">#1F4209</color>
+    <color name="ratingBar_yellow">#F2D53B</color>
+    <color name="textField_gray">#ffffff</color>
+    <color name="text_dark">#1C1B1F</color>
 </resources>

@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -14,7 +15,6 @@
         android:padding="16dp"
         android:paddingTop="?attr/actionBarSize">
 
-        <!-- Nombre ruta -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilRouteName"
             android:layout_width="0dp"
@@ -28,56 +28,38 @@
                 android:id="@+id/etRouteName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_dark"
                 android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Localización -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/localization"
             android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tilRouteName"
+            android:hint="@string/localization"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tilRouteName">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:textColor="@color/text_dark"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Tipo ruta -->
-        <Spinner
-            android:id="@+id/spRouteType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tilLocation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
         <TextView
-            android:id="@+id/tvDifficulty"
+            android:id="@+id/tvRouteType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/difficulty"
             android:textSize="18sp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/spRouteType"
+            app:layout_constraintTop_toBottomOf="@id/tilLocation"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <Spinner
-            android:id="@+id/spDifficulty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tvDifficulty"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <!-- Distancia -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDistance"
             android:layout_width="0dp"
@@ -92,10 +74,10 @@
                 android:id="@+id/etDistance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_dark"
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Latitud -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilLatitude"
             android:layout_width="0dp"
@@ -110,10 +92,10 @@
                 android:id="@+id/etLatitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_dark"
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Longitud -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilLongitude"
             android:layout_width="0dp"
@@ -128,10 +110,10 @@
                 android:id="@+id/etLongitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_dark"
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Descripción -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDescription"
             android:layout_width="0dp"
@@ -147,10 +129,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:minLines="3"/>
+                android:textColor="@color/text_dark"
+                android:minLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Notas -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNotes"
             android:layout_width="0dp"
@@ -166,7 +148,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:minLines="2"/>
+                android:textColor="@color/text_dark"
+                android:minLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <RatingBar
@@ -176,10 +159,48 @@
             android:layout_marginTop="12dp"
             android:numStars="5"
             android:stepSize="0.5"
+            android:progressBackgroundTint="@color/textField_gray"
+            android:progressTint="@color/ratingBar_yellow"
             app:layout_constraintTop_toBottomOf="@id/tilNotes"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <Switch
+        <Spinner
+            android:id="@+id/spRouteType"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/spinner_custom"
+            android:paddingStart="16dp"
+            android:paddingEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDifficulty" />
+
+        <TextView
+            android:id="@+id/tvDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/routeType"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilLocation" />
+
+        <Spinner
+            android:id="@+id/spDifficulty"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/spinner_custom"
+            android:paddingStart="16dp"
+            android:paddingEnd="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDifficulty" />
+
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -188,12 +209,11 @@
             app:layout_constraintTop_toBottomOf="@id/ratingBarRegistration"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/save"
-            android:backgroundTint="@color/dark_green"
             android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@id/swFavorite"
             app:layout_constraintStart_toStartOf="parent"

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
-
+            /// hub de fragments
             if (item.getItemId() == R.id.nav_rutas) {
                 selectedFragment = new RouteListFragment();
             } else if (item.getItemId() == R.id.nav_favRoute) {
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         return true;
     }
-
+    /// Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

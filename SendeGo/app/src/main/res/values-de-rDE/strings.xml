@@ -9,6 +9,7 @@
     <string name="route_name">Routenname</string>
     <string name="localization">Standort oder Ort</string>
     <string name="difficulty">Schwierigkeitsgrad</string>
+    <string name="routeType">Routentyp</string>
     <string name="distance">Entfernung (km)</string>
     <string name="description">Beschreibung</string>
     <string name="notes">Notizen</string>

@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/dark_green"
+
         app:itemIconTint="@android:color/white"
         app:navigationIconTint="@android:color/white"
         android:elevation="4dp"
@@ -20,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"

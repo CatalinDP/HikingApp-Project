@@ -43,7 +43,6 @@
                 >
 
 
-                <!-- Título + icono favorito -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,11 +72,11 @@
                         android:id="@+id/favoriteIcon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:tint="@color/ratingBar_yellow"
                         android:src="@drawable/estrella_vacia"
                         android:contentDescription="Marcar como favorito"/>
                 </LinearLayout>
 
-                <!-- Datos clave: distancia, dificultad, tiempo -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -147,7 +146,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Descripción + coordenadas -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -170,7 +168,7 @@
                         android:textColor="@android:color/black"
                         android:layout_marginTop="12dp"/>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnOpenMaps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -181,7 +179,6 @@
                         android:textColor="#FFFFFF"/>
                 </LinearLayout>
 
-                <!-- Sección de Puntos de Interés -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,7 +201,7 @@
                         android:layout_height="100dp"
                         android:nestedScrollingEnabled="true"/>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddPoi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -217,7 +214,6 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-        <!-- Espacio inferior para que no quede pegado -->
         <View
             android:layout_width="match_parent"
             android:layout_height="80dp"/>
