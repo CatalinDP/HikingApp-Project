@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.sendego.PointsOfInterestAdapter;
 import com.app.sendego.R;
+import com.app.sendego.services.MusicService;
+
 import database.AppDatabase;
 import models.Route;
 import threads.LoadPointsOfInterest;
@@ -40,6 +42,9 @@ public class RouteDetailFragment extends Fragment {
     private RecyclerView recyclerPoi;
     private long routeId;
 
+    private boolean encendida;
+    private ImageView botonMusica;
+
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private final ActivityResultLauncher<Intent> addPoiLauncher =
@@ -49,7 +54,12 @@ public class RouteDetailFragment extends Fragment {
                 }
             });
 
-    public RouteDetailFragment() {
+    public RouteDetailFragment() {}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        encendida = false;
     }
 
     @Override
@@ -64,7 +74,6 @@ public class RouteDetailFragment extends Fragment {
 
         db = AppDatabase.getAppDatabase(requireContext());
 
-        // Obtener ID desde argumentos
         Bundle args = getArguments();
         if (args != null) {
             long id = args.getLong("route_id", -1L);
@@ -83,6 +92,16 @@ public class RouteDetailFragment extends Fragment {
 
         favoriteIcon = view.findViewById(R.id.favoriteIcon);
 
+        botonMusica = view.findViewById(R.id.musicIcon);
+
+        if (encendida)
+            botonMusica.setImageResource(R.drawable.pause_24);
+
+        botonMusica.setOnClickListener(v -> {
+            if (encendida) apagaMusica();
+            else enciendeMusica();
+        });
+
         recyclerPoi = view.findViewById(R.id.recyclerPoi);
         recyclerPoi.setLayoutManager(new LinearLayoutManager(requireContext()));
         poiAdapter = new PointsOfInterestAdapter(new ArrayList<>());
@@ -95,7 +114,6 @@ public class RouteDetailFragment extends Fragment {
             addPoiLauncher.launch(intent);
         });
 
-        // Botón para abrir Google Maps (código directo como lo dio la profesora)
         Button btnOpenMaps = view.findViewById(R.id.btnOpenMaps);
         btnOpenMaps.setOnClickListener(v -> {
             if (route == null || route.getLatitude() == null || route.getLongitude() == null) {
@@ -134,6 +152,38 @@ public class RouteDetailFragment extends Fragment {
         });
 
         loadRouteAndPois();
+    }
+
+    public void enciendeMusica() {
+
+        botonMusica.setImageResource(R.drawable.pause_24);
+
+        Intent miReproductor = new Intent(getActivity(), MusicService.class);
+
+        getActivity().startService(miReproductor);
+
+        encendida = !encendida;
+    }
+
+    public void apagaMusica() {
+
+        botonMusica.setImageResource(R.drawable.play_arrow_24);
+
+        Intent miReproductor = new Intent(getActivity(), MusicService.class);
+
+        getActivity().stopService(miReproductor);
+
+        encendida = !encendida;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Intent miReproductor =
+                new Intent(getActivity(), MusicService.class);
+
+        getActivity().stopService(miReproductor);
     }
 
     private void loadRouteAndPois() {
