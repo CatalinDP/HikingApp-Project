@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -65,8 +64,7 @@ public class RouteRegistration extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         // Botón guardar
@@ -77,11 +75,19 @@ public class RouteRegistration extends AppCompatActivity {
             EditText etDistance = findViewById(R.id.etDistance);
             EditText etDescription = findViewById(R.id.etDescription);
             EditText etNotes = findViewById(R.id.etNotes);
-            EditText etLatitude = findViewById(R.id.etLatitude);
-            EditText etLongitude = findViewById(R.id.etLongitude);
+
+            EditText etLatDeg = findViewById(R.id.etLatDeg);
+            EditText etLatMin = findViewById(R.id.etLatMin);
+            EditText etLatSec = findViewById(R.id.etLatSec);
+
+            EditText etLonDeg = findViewById(R.id.etLonDeg);
+            EditText etLonMin = findViewById(R.id.etLonMin);
+            EditText etLonSec = findViewById(R.id.etLonSec);
+
             SwitchCompat swFavorito = findViewById(R.id.swFavorite);
             RatingBar ratingBar = findViewById(R.id.ratingBarRegistration);
 
+            // Validaciones básicas
             String name = etNombreRuta.getText().toString().trim();
             if (name.isEmpty()) {
                 Toast.makeText(this, "El nombre de la ruta es obligatorio", Toast.LENGTH_SHORT).show();
@@ -102,18 +108,33 @@ public class RouteRegistration extends AppCompatActivity {
                 return;
             }
 
-            String lat = etLatitude.getText().toString().trim();
-            String lon = etLongitude.getText().toString().trim();
-            if (lat.isEmpty()) lat = null;
-            if (lon.isEmpty()) lon = null;
+            // Obtener campos de coordenadas
+            String latDeg = etLatDeg.getText().toString().trim();
+            String latMin = etLatMin.getText().toString().trim();
+            String latSec = etLatSec.getText().toString().trim();
+            String lonDeg = etLonDeg.getText().toString().trim();
+            String lonMin = etLonMin.getText().toString().trim();
+            String lonSec = etLonSec.getText().toString().trim();
 
-            // Obtenemos la dificultad directamente del spinner seleccionado
+            // Validar que estén todos completos
+            if (latDeg.isEmpty() || latMin.isEmpty() || latSec.isEmpty() ||
+                    lonDeg.isEmpty() || lonMin.isEmpty() || lonSec.isEmpty()) {
+                Toast.makeText(this, "Completa todos los campos de latitud y longitud", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Concatenamos tal cual (sin puntos, sin conversión)
+            String finalLat = latDeg + latMin + latSec;   // ej: "380317"
+            String finalLon = lonDeg + lonMin + lonSec;   // ej: "-11247"
+
+            // Spinner Dificultad
             int difficultyPosition = spDificultad.getSelectedItemPosition();
             Difficulty selectedDifficulty = Difficulty.values()[difficultyPosition];
 
-            // Obtenemos el tipo de ruta del spinner (por consistencia)
+            // Tipo de ruta
             int typePosition = spTipoRuta.getSelectedItemPosition();
             RouteType selectedRouteType = RouteType.values()[typePosition];
+
             float puntos = ratingBar.getRating();
 
             Route route = new Route(
@@ -125,8 +146,8 @@ public class RouteRegistration extends AppCompatActivity {
                     etDescription.getText().toString().trim(),
                     etNotes.getText().toString().trim(),
                     swFavorito.isChecked(),
-                    lat,
-                    lon
+                    finalLat,
+                    finalLon
             );
 
             ExecutorService executor = Executors.newSingleThreadExecutor();

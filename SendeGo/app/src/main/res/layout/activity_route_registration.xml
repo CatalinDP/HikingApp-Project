@@ -78,39 +78,129 @@
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilLatitude"
-            android:layout_width="0dp"
+        <!-- LATITUD -->
+        <TextView
+            android:id="@+id/tvLatitude"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/latitude_example"
+            android:text="@string/latitude_example"
             android:layout_marginTop="12dp"
             app:layout_constraintTop_toBottomOf="@id/tilDistance"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLatDeg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvLatitude"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toStartOf="@id/tilLatMin">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etLatitude"
+                android:id="@+id/etLatDeg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_dark"
-                android:inputType="numberDecimal"/>
+                android:hint="@string/grados"
+                android:inputType="numberSigned"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilLongitude"
+            android:id="@+id/tilLatMin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/longitude_example"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tilLatitude"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toTopOf="@id/tilLatDeg"
+            app:layout_constraintStart_toEndOf="@id/tilLatDeg"
+            app:layout_constraintEnd_toStartOf="@id/tilLatSec">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLatMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/minutos"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLatSec"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toTopOf="@id/tilLatDeg"
+            app:layout_constraintStart_toEndOf="@id/tilLatMin"
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etLongitude"
+                android:id="@+id/etLatSec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_dark"
+                android:hint="@string/segundos"
+                android:inputType="numberDecimal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- LONGITUD -->
+        <TextView
+            android:id="@+id/tvLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/longitude_example"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tilLatDeg"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLonDeg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvLongitude"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tilLonMin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLonDeg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/grados"
+                android:inputType="numberSigned"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLonMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toTopOf="@id/tilLonDeg"
+            app:layout_constraintStart_toEndOf="@id/tilLonDeg"
+            app:layout_constraintEnd_toStartOf="@id/tilLonSec">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLonMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/minutos"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLonSec"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toTopOf="@id/tilLonDeg"
+            app:layout_constraintStart_toEndOf="@id/tilLonMin"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLonSec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/segundos"
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +210,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/description"
             android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tilLongitude"
+            app:layout_constraintTop_toBottomOf="@id/tilLonSec"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 

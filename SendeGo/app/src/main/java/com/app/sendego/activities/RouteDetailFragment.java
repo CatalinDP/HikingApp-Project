@@ -121,33 +121,70 @@ public class RouteDetailFragment extends Fragment {
                 return;
             }
 
+            String latStr = route.getLatitude().trim();
+            String lonStr = route.getLongitude().trim();
+
             double lat;
             double lon;
+
             try {
-                lat = Double.parseDouble(route.getLatitude());
-                lon = Double.parseDouble(route.getLongitude());
+                if (latStr.length() != 6) {
+                    throw new NumberFormatException("Latitud debe tener 6 dígitos");
+                }
+                double latDeg = Double.parseDouble(latStr.substring(0, 2));
+                double latMin = Double.parseDouble(latStr.substring(2, 4));
+                double latSec = Double.parseDouble(latStr.substring(4, 6));
+                lat = latDeg + (latMin / 60.0) + (latSec / 3600.0);
+
+                boolean negativo = lonStr.startsWith("-");
+                if (negativo) {
+                    lonStr = lonStr.substring(1);
+                }
+
+                lonStr = lonStr.replaceFirst("^0+", "");
+
+                double lonDeg, lonMin, lonSec;
+
+                if (lonStr.length() == 5) {
+                    lonDeg = Double.parseDouble(lonStr.substring(0, 1));
+                    lonMin = Double.parseDouble(lonStr.substring(1, 3));
+                    lonSec = Double.parseDouble(lonStr.substring(3, 5));
+                } else if (lonStr.length() == 6) {
+                    lonDeg = Double.parseDouble(lonStr.substring(0, 2));
+                    lonMin = Double.parseDouble(lonStr.substring(2, 4));
+                    lonSec = Double.parseDouble(lonStr.substring(4, 6));
+                } else {
+                    throw new NumberFormatException("Longitud debe tener 5 o 6 dígitos");
+                }
+
+                lon = lonDeg + (lonMin / 60.0) + (lonSec / 3600.0);
+                if (negativo) {
+                    lon = -lon;
+                }
+
+                String etiqueta = route.getName() != null ? route.getName() : "Inicio de la ruta";
+
+                Uri myIntentUri = Uri.parse(
+                        "geo:" + lat + "," + lon +
+                                "?q=" + lat + "," + lon +
+                                "(" + Uri.encode(etiqueta) + ")"
+                );
+
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, myIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+
+                if (mapIntent.resolveActivity(requireContext().getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                } else {
+                    Toast.makeText(requireContext(),
+                            "Google Maps no está instalado",
+                            Toast.LENGTH_SHORT).show();
+                }
+
             } catch (NumberFormatException e) {
-                Toast.makeText(requireContext(), "Coordenadas inválidas", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            String etiqueta = route.getName() != null ? route.getName() : "Inicio de la ruta";
-
-            Uri myIntentUri = Uri.parse(
-                    "geo:" + lat + "," + lon +
-                            "?q=" + lat + "," + lon +
-                            "(" + Uri.encode(etiqueta) + ")"
-            );
-
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, myIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-
-            if (mapIntent.resolveActivity(requireContext().getPackageManager()) != null) {
-                startActivity(mapIntent);
-            } else {
-                Toast.makeText(requireContext(),
-                        "Google Maps no está instalado",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Coordenadas inválidas: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(requireContext(), "Error al procesar coordenadas", Toast.LENGTH_SHORT).show();
             }
         });
 
