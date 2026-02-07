@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.app.sendego.R;
 
@@ -78,7 +79,7 @@ public class RouteRegistration extends AppCompatActivity {
             EditText etNotes = findViewById(R.id.etNotes);
             EditText etLatitude = findViewById(R.id.etLatitude);
             EditText etLongitude = findViewById(R.id.etLongitude);
-            Switch swFavorito = findViewById(R.id.swFavorite);
+            SwitchCompat swFavorito = findViewById(R.id.swFavorite);
             RatingBar ratingBar = findViewById(R.id.ratingBarRegistration);
 
             String name = etNombreRuta.getText().toString().trim();
