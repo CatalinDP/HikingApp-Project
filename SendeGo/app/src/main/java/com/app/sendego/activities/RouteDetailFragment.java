@@ -1,6 +1,8 @@
 package com.app.sendego.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -127,6 +129,8 @@ public class RouteDetailFragment extends Fragment {
             double lat;
             double lon;
 
+            String absolutePath = route.getPhotoPath();
+
             try {
                 if (latStr.length() != 6) {
                     throw new NumberFormatException("Latitud debe tener 6 dígitos");
@@ -247,6 +251,28 @@ public class RouteDetailFragment extends Fragment {
                 TextView distanceText = requireView().findViewById(R.id.distanceText);
                 TextView difficultyText = requireView().findViewById(R.id.difficultyText);
                 TextView timeText = requireView().findViewById(R.id.timeText);
+                ImageView routeImage = requireView().findViewById(R.id.routePhoto);
+                if (!route.getPhotoPath().equalsIgnoreCase("Empty")) {
+                    routeImage.setImageURI(Uri.parse(route.getPhotoPath()));
+                } else {
+                    routeImage.setImageResource(R.drawable.no_route_found);
+                }
+
+                // para mostrar un modal con la imagen en pantalla completa
+                routeImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Dialog dialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                        ImageView image = new ImageView(getContext());
+
+                        image.setImageDrawable(routeImage.getDrawable());
+                        image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                        dialog.setContentView(image);
+                        dialog.show();
+                        image.setOnClickListener(view -> dialog.dismiss());
+                    }
+                });
 
                 distanceText.setText(route.getDistance() + " km");
                 difficultyText.setText(route.getDifficulty().name());

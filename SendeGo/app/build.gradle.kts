@@ -38,6 +38,11 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
+    val cameraxVersion = "1.3.0"
+    implementation("androidx.camera:camera-core:$cameraxVersion")
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:${cameraxVersion}")
+    implementation("androidx.camera:camera-view:${cameraxVersion}")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

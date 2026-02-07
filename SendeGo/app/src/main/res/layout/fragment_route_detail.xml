@@ -72,7 +72,7 @@
                         android:id="@+id/favoriteIcon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:tint="@color/ratingBar_yellow"
+                        app:tint="@color/ratingBar_yellow"
                         android:src="@drawable/estrella_vacia"
                         android:contentDescription="Marcar como favorito"/>
                 </LinearLayout>
@@ -168,13 +168,26 @@
                         android:textColor="@android:color/black"
                         android:layout_marginTop="12dp"/>
 
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/routePhoto"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        app:strokeColor="@color/text_dark"
+                        app:strokeWidth="2dp"
+                        android:contentDescription="Route photo taken in registration"/>
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnOpenMaps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Abrir en Google Maps"
+                        android:text="@string/openMaps"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="26dp"
                         android:backgroundTint="#4CAF50"
                         android:textColor="#FFFFFF"/>
                 </LinearLayout>
@@ -198,7 +211,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerPoi"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="true"/>
 
                     <com.google.android.material.button.MaterialButton

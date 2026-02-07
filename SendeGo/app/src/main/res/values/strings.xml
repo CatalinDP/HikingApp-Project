@@ -49,8 +49,9 @@
     <string name="homeView">Inicio</string>
     <string name="favoriteRoutesTextView">Tus rutas favoritas</string>
     <string name="emptyFavRoutes">No tienes rutas favoritas aún</string>
-    <string name="grados">Grados</string>
-    <string name="minutos">Min</string>
-    <string name="segundos">Seg</string>
-
+    <string name="grades">Grados</string>
+    <string name="minutes">Min</string>
+    <string name="seconds">Seg</string>
+    <string name="takePhoto">Tomar foto</string>
+    <string name="openMaps">Abrir en Google Maps</string>
 </resources>

@@ -1,6 +1,10 @@
 package com.app.sendego.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Insets;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,11 +15,24 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.app.sendego.R;
+import com.google.common.util.concurrent.ListenableFuture;
 
+import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,12 +45,44 @@ public class RouteRegistration extends AppCompatActivity {
 
     private AppDatabase appDatabase;
     private RouteType routeType = RouteType.CIRCULAR;
+    private PreviewView myPreview;
+    private ImageCapture imageCapture;
+    private ProcessCameraProvider cameraProvider;
+    private File photoFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_route_registration);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.routeRegistration),
+                (v, insets) -> {
+                    Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars()).toPlatformInsets();
+                    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                    return insets;
+                });
+
+        myPreview = findViewById(R.id.viewFinder);
+        Button btnCapture = findViewById(R.id.btnCapture);
+
+        //Comprobación de permisos
+        if (ContextCompat.checkSelfPermission(RouteRegistration.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Si no tenemos el permiso, lo pedimos
+            ActivityCompat.requestPermissions(RouteRegistration.this, new String[]{Manifest.permission.CAMERA}, 101);
+        } else {
+            // Si ya lo tenemos, arrancamos la cámara
+            configurarCameraX();
+        }
+        configurarCameraX();
+        btnCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tomarFoto();
+            }
+        });
+
 
         appDatabase = AppDatabase.getAppDatabase(this);
 
@@ -64,7 +113,8 @@ public class RouteRegistration extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         // Botón guardar
@@ -136,19 +186,35 @@ public class RouteRegistration extends AppCompatActivity {
             RouteType selectedRouteType = RouteType.values()[typePosition];
 
             float puntos = ratingBar.getRating();
-
-            Route route = new Route(
-                    name,
-                    selectedDifficulty,
-                    selectedRouteType,
-                    distance,
-                    puntos,
-                    etDescription.getText().toString().trim(),
-                    etNotes.getText().toString().trim(),
-                    swFavorito.isChecked(),
-                    finalLat,
-                    finalLon
-            );
+            Route route;
+            if (photoFile != null) {
+                route = new Route(
+                        name,
+                        selectedDifficulty,
+                        selectedRouteType,
+                        distance,
+                        puntos,
+                        etDescription.getText().toString().trim(),
+                        etNotes.getText().toString().trim(),
+                        swFavorito.isChecked(),
+                        finalLat,
+                        finalLon,
+                        photoFile.getAbsolutePath()
+                );
+            } else {
+                route = new Route(
+                        name,
+                        selectedDifficulty,
+                        selectedRouteType,
+                        distance,
+                        puntos,
+                        etDescription.getText().toString().trim(),
+                        etNotes.getText().toString().trim(),
+                        swFavorito.isChecked(),
+                        finalLat,
+                        finalLon
+                );
+            }
 
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
@@ -158,6 +224,72 @@ public class RouteRegistration extends AppCompatActivity {
                     finish();
                 });
             });
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 101) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                configurarCameraX();
+            } else {
+                Toast.makeText(this, "Necesitas aceptar el permiso para usar la cámara", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private void configurarCameraX() {
+        ListenableFuture<ProcessCameraProvider> cameraProviderFuture =
+                ProcessCameraProvider.getInstance(this);
+        // Creamos el "aviso" para cuando esté lista
+        cameraProviderFuture.addListener(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    cameraProvider = cameraProviderFuture.get();
+                    enlazarCasosDeUso();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, ContextCompat.getMainExecutor(this));
+    }
+
+    private void enlazarCasosDeUso() {
+        Preview preview = new Preview.Builder().build();
+        preview.setSurfaceProvider(myPreview.getSurfaceProvider());
+        imageCapture = new ImageCapture.Builder()
+                .setTargetRotation(getWindowManager().getDefaultDisplay().getRotation())
+                .build();
+        // Selección de cámara trasera
+        CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
+        try {
+            cameraProvider.unbindAll();
+            // Se vincula todo al ciclo de vida de la actividad
+            cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
+
+
+        } catch (Exception e) {
+            Log.e("CameraX", "Error al vincular casos de uso", e);
+        }
+    }
+    private void tomarFoto() {
+        if (imageCapture == null) return;
+        Toast.makeText(this, "BotonTomar", Toast.LENGTH_SHORT).show();
+        photoFile = new File(getExternalFilesDir(null), System.currentTimeMillis() + ".jpg");
+        ImageCapture.OutputFileOptions outputOptions = new ImageCapture.OutputFileOptions.Builder(photoFile).build();
+        imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this), new ImageCapture.OnImageSavedCallback() {
+            @Override
+            public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                Toast.makeText(RouteRegistration.this, "Foto guardada en: " + photoFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(@NonNull ImageCaptureException exception) {
+                Toast.makeText(RouteRegistration.this, "Error con la foto, vuelva a intentarlo", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

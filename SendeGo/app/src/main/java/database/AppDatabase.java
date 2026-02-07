@@ -22,7 +22,7 @@ Modificas cualquier cosa que afecte la estructura de las tablas
 (para lo de la versión 2)(para que se entienda el por qué, si no se cambia crashea -experiencia propia-)
 * */
 
-@Database(entities = {Route.class, PointOfInterest.class}, version = 4, exportSchema = false)
+@Database(entities = {Route.class, PointOfInterest.class}, version = 5, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

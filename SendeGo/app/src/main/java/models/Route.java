@@ -22,7 +22,22 @@ public class Route {
     private boolean favorite;
     private String latitude;
     private String longitude;
+    private String photoPath;
     public static List<Route> routeList = new ArrayList<>(); //Lista donde se guardan las rutas!
+
+    public Route(String name, Difficulty difficulty, RouteType type, Double distance, float puntuacion, String description, String notes, boolean favorite, String latitude, String longitude, String photoPath) {
+        this.name = name;
+        this.difficulty = difficulty;
+        this.type = type;
+        this.distance = distance;
+        this.puntuacion = puntuacion;
+        this.description = description;
+        this.notes = notes;
+        this.favorite = favorite;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.photoPath = photoPath;
+    }
 
     public Route(String name, Difficulty difficulty, RouteType type, Double distance, float puntuacion, String description, String notes, boolean favorite, String latitude, String longitude) {
         this.name = name;
@@ -35,11 +50,26 @@ public class Route {
         this.favorite = favorite;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.photoPath = "Empty";
     }
 
     public Route() {
     }
 
+    public String getPhotoPath() {
+        return photoPath;
+    }
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public static List<Route> getRouteList() {
+        return routeList;
+    }
+
+    public static void setRouteList(List<Route> routeList) {
+        Route.routeList = routeList;
+    }
     public RouteType getType() {
         return type;
     }

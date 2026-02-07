@@ -4,50 +4,55 @@
     <string name="addNewRoute">Neue Route hinzufügen</string>
     <string name="seeRoutes">Meine Routen ansehen</string>
     <string name="exit">Beenden</string>
-    <string name="about">Über uns</string>
+    <string name="about">Über</string>
     <string name="help">Hilfe</string>
     <string name="route_name">Routenname</string>
     <string name="localization">Standort oder Ort</string>
-    <string name="difficulty">Schwierigkeitsgrad</string>
+    <string name="difficulty">Schwierigkeit</string>
     <string name="routeType">Routentyp</string>
     <string name="distance">Entfernung (km)</string>
     <string name="description">Beschreibung</string>
     <string name="notes">Notizen</string>
     <string name="favourite">Als Favorit markieren</string>
     <string name="save">Speichern</string>
-    <string name="about_us_description">SendeGo ist eine App zur einfachen Erfassung und Verwaltung von Wanderrouten.</string>
-    <string name="authors">Autoren: Catalin Dumitru Posedaru and Juan de Dios Panches Macías</string>
+    <string name="about_us_description">SendeGo ist eine Anwendung, um Wanderrouten einfach zu registrieren und zu verwalten.</string>
+    <string name="authors">Autoren: Catalin Dumitru Posedaru und Juan de Dios Panches Macías</string>
     <string name="about_us_date">Datum: Januar 2026</string>
-    <string name="app_version">Version: 0.1</string>
+    <string name="app_version">Version: 0.8</string>
     <string name="support_button">Support kontaktieren</string>
     <string-array name="route_type">
         <item>Rundweg</item>
-        <item>Streckenwanderung</item>
+        <item>Linear</item>
     </string-array>
     <string-array name="difficulty">
         <item>Alle</item>
         <item>Schwer</item>
         <item>Mittel</item>
-        <item>Einfach</item>
+        <item>Leicht</item>
     </string-array>
-    <string name="difficultyHard">Schwer</string>
-    <string name="difficultyMid">Mittel</string>
-    <string name="difficultyEasy">Einfach</string>
     <string-array name="difficultyRegistration">
-        <item>Einfach</item>
+        <item>Leicht</item>
         <item>Mittel</item>
         <item>Schwer</item>
     </string-array>
-    <string name="latitude_example">Breite (ej: 38°03′17″N)</string>
-    <string name="longitude_example">Länge (ej: 1°12′47″O)</string>
+    <string name="difficultyHard">Schwer</string>
+    <string name="difficultyMid">Mittel</string>
+    <string name="difficultyEasy">Leicht</string>
+    <string name="latitude_example">Breitengrad (z.B. 38°03′17″N)</string>
+    <string name="longitude_example">Längengrad (z.B. 1°12′47″W)</string>
     <string name="name_point">Punktname</string>
     <string name="btnSelectPhotoPOI">Foto auswählen</string>
     <string name="photo_preview_POI">Fotovorschau</string>
     <string name="btnSavePOI">Punkt speichern</string>
-    <string name="point_of_interest">Interessante Punkte</string>
+    <string name="point_of_interest">Interessante Orte (POI)</string>
     <string name="add_POI">Punkt hinzufügen</string>
     <string name="myFavoriteRoutes">Lieblingsrouten</string>
-    <string name="homeView">Start</string>
-    <string name="favoriteRoutesTextView">Ihre Lieblingsrouten</string>
-    <string name="emptyFavRoutes">Sie haben noch keine Lieblingsrouten.</string>
+    <string name="homeView">Startseite</string>
+    <string name="favoriteRoutesTextView">Deine Lieblingsrouten</string>
+    <string name="emptyFavRoutes">Du hast noch keine Lieblingsrouten</string>
+    <string name="grades">Grad</string>
+    <string name="minutes">Min.</string>
+    <string name="seconds">Sek.</string>
+    <string name="takePhoto">Foto aufnehmen</string>
+    <string name="openMaps">In Google Maps öffnen</string>
 </resources>
