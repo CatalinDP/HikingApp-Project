@@ -37,7 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             AppDatabase.class,
                             "RoutesDB")
-                    .fallbackToDestructiveMigration(true) // .fallbackToDestructiveMigration(true) → destruye y recrea la BD si el esquema cambia (temporal mi bro)
+                    .fallbackToDestructiveMigration(true) // .fallbackToDestructiveMigration(true) → destruye y recrea la BD si el esquema cambia
                     .build();
         }
         return appDatabase;

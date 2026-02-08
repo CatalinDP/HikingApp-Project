@@ -26,6 +26,7 @@ import com.app.sendego.R;
 import com.app.sendego.services.MusicService;
 
 import database.AppDatabase;
+import models.Difficulty;
 import models.Route;
 import threads.LoadPointsOfInterest;
 
@@ -275,7 +276,14 @@ public class RouteDetailFragment extends Fragment {
                 });
 
                 distanceText.setText(route.getDistance() + " km");
-                difficultyText.setText(route.getDifficulty().name());
+                Difficulty diff = route.getDifficulty();
+                if (diff == Difficulty.DIFICIL) {
+                    difficultyText.setText(R.string.difficultyHard);
+                } else if (diff == Difficulty.MEDIA) {
+                    difficultyText.setText(R.string.difficultyMid);
+                } else if (diff == Difficulty.FACIL) {
+                    difficultyText.setText(R.string.difficultyEasy);
+                }
 
                 double speed = route.getDifficulty() == models.Difficulty.DIFICIL ? 3.0 : 4.0;
                 double estimatedTime = route.getDistance() / speed;

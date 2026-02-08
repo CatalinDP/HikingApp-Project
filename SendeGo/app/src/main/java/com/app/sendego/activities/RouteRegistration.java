@@ -158,7 +158,6 @@ public class RouteRegistration extends AppCompatActivity {
                 return;
             }
 
-            // Obtener campos de coordenadas
             String latDeg = etLatDeg.getText().toString().trim();
             String latMin = etLatMin.getText().toString().trim();
             String latSec = etLatSec.getText().toString().trim();
@@ -173,15 +172,12 @@ public class RouteRegistration extends AppCompatActivity {
                 return;
             }
 
-            // Concatenamos tal cual (sin puntos, sin conversión)
-            String finalLat = latDeg + latMin + latSec;   // ej: "380317"
-            String finalLon = lonDeg + lonMin + lonSec;   // ej: "-11247"
+            String finalLat = latDeg + latMin + latSec;
+            String finalLon = lonDeg + lonMin + lonSec;
 
-            // Spinner Dificultad
             int difficultyPosition = spDificultad.getSelectedItemPosition();
             Difficulty selectedDifficulty = Difficulty.values()[difficultyPosition];
 
-            // Tipo de ruta
             int typePosition = spTipoRuta.getSelectedItemPosition();
             RouteType selectedRouteType = RouteType.values()[typePosition];
 
@@ -277,13 +273,12 @@ public class RouteRegistration extends AppCompatActivity {
     }
     private void tomarFoto() {
         if (imageCapture == null) return;
-        Toast.makeText(this, "BotonTomar", Toast.LENGTH_SHORT).show();
         photoFile = new File(getExternalFilesDir(null), System.currentTimeMillis() + ".jpg");
         ImageCapture.OutputFileOptions outputOptions = new ImageCapture.OutputFileOptions.Builder(photoFile).build();
         imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this), new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                Toast.makeText(RouteRegistration.this, "Foto guardada en: " + photoFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RouteRegistration.this, "Foto guardada", Toast.LENGTH_SHORT).show();
             }
 
             @Override
