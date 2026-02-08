@@ -15,9 +15,9 @@
     <string name="favourite">Marcar favorita</string>
     <string name="save">Guardar</string>
     <string name="about_us_description">SendeGo es una aplicación para registrar y gestionar rutas de senderismo de forma sencilla.</string>
-    <string name="authors">Autores: Catalin Dumitru Posedaru and Juan de Dios Panches Macías</string>
+    <string name="authors">Autores: Catalin Dumitru Posedaru🦁 y Juan de Dios Panches Macías🐯</string>
     <string name="about_us_date">Fecha: Enero 2026</string>
-    <string name="app_version">Version: 0.8</string>
+    <string name="app_version">Version: 1.0</string>
     <string name="support_button">Contactar soporte</string>
     <string-array name="route_type">
         <item>Circular</item>

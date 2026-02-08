@@ -52,7 +52,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     public void setRoutes(List<Route> routes) {
         localDataSet = routes;
-        notifyDataSetChanged();
+        notifyDataSetChanged(); // Para decirle al programa que actualice la lista
     }
 
     @Override

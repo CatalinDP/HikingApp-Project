@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
+            Menu menu = bottomNav.getMenu();
+            menu.setGroupCheckable(0, true, true);
             /// hub de fragments
             if (item.getItemId() == R.id.nav_rutas) {
                 selectedFragment = new RouteListFragment();
@@ -79,11 +82,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.menu_item_about) {
-            Intent intent = new Intent(MainActivity.this, AboutUs.class);
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.menu_item_help) {
+        if (id == R.id.menu_item_help) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://montanasegura.com/senderismo-con-seguridad/"));
             startActivity(intent);
             return true;
@@ -93,6 +92,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }else if (id == R.id.menu_item_salir) {
             finish();
+            return true;
+        } else if (id == R.id.menu_item_about) {
+            Fragment aboutUs = new AboutUsFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, aboutUs)
+                    .commit();
+            BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+            Menu menu = bottomNav.getMenu(); // oculto el check de los iconos
+            menu.setGroupCheckable(0, true, false);
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setChecked(false);
+            }
+            menu.setGroupCheckable(0, true, true);
             return true;
         }
 

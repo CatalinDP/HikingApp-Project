@@ -45,9 +45,6 @@
             android:name=".activities.PointOfInterestRegistration"
             android:exported="false" />
         <activity
-            android:name=".activities.AboutUs"
-            android:exported="false" />
-        <activity
             android:name=".activities.RouteRegistration"
             android:exported="false" />
         <activity
